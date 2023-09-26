@@ -1,7 +1,11 @@
 package com.poscodx.jblog.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,18 +29,27 @@ public class BlogController {
 	private BlogService blogService;
 
 	@GetMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
-	public String index(@PathVariable("id") String blogId, @PathVariable("categoryNo") Optional<Long> categoryNo,
-			@PathVariable("postNo") Optional<Long> postNo, Model model) {
+	public String index(HttpServletRequest request, @PathVariable("id") String blogId,
+			@PathVariable("categoryNo") Optional<Long> categoryNo, @PathVariable("postNo") Optional<Long> postNo,
+			Model model) {
 		BlogVo blogVo = blogService.blogInfo(blogId);
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("blogVo", blogVo);
+		List<PostVo> postList = new ArrayList<>();
 
 		// 만약 카테고리를 눌렀을 때
 		if (!categoryNo.isEmpty()) {
-			List<PostVo> postList = blogService.postInfo(categoryNo.get());
+			postList = blogService.postInfo(categoryNo.get());
 			model.addAttribute("postList", postList);
-			System.out.println(postList.get(0));
+			System.out.println(categoryNo.get());
+			model.addAttribute("categoryNo", categoryNo.get());
+		}
+
+		// 카테고리도 누르고 게시글도 눌렀을 때
+		if (!categoryNo.isEmpty() && !postNo.isEmpty()) {
+			PostVo postvo = postList.get(postNo.get().intValue());
+			model.addAttribute("postInfo", postvo);
 		}
 		return "blog/main";
 	}
@@ -48,7 +61,8 @@ public class BlogController {
 
 	@GetMapping("/admin/category")
 	public String adminCategoryForm(@PathVariable("id") String blogId, Model model) {
-		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
+		List<CategoryVo> categoryList = new ArrayList<>();
+		categoryList = blogService.categoryInfo(blogId);
 		model.addAttribute("categoryList", categoryList);
 		return "blog/admin-category";
 	}
