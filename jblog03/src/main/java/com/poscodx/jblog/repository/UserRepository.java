@@ -15,8 +15,8 @@ public class UserRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public Boolean insert(UserVo vo) {
-		int count = sqlSession.insert("user.insert", vo);
+	public Boolean insert(UserVo userVo) {
+		int count = sqlSession.insert("user.insert", userVo);
 		return count == 1;
 	}
 

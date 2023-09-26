@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.UserVo;
 
@@ -17,6 +18,8 @@ import com.poscodx.jblog.vo.UserVo;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BlogService blogService;
 
 	@GetMapping("/join")
 	public String joinForm() {
@@ -26,7 +29,9 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(UserVo userVo) {
 		boolean checkJoin = userService.join(userVo);
+		// 블로그 생성 추가
 		if (checkJoin == true) {
+			blogService.createBlog(userVo);
 			return "redirect:/user/joinsuccess";
 		}
 		return "redirect:/user/join";
@@ -57,7 +62,7 @@ public class UserController {
 		HttpSession httpSession = request.getSession();
 		httpSession.removeAttribute("authUser");
 		httpSession.invalidate();
-		return "redirect:/jblog";
+		return "redirect:/";
 	}
 
 }

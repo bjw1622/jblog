@@ -9,12 +9,8 @@
 		  into user
 	    values (#{id}, #{name }, password(#{password }))
 		]]>
-		<selectKey keyProperty="id" resultType="string"
-			order="AFTER">
-			<![CDATA[
-			select last_insert_id();
-			]]>
-		</selectKey>
+		<!-- <selectKey keyProperty="id" resultType="string" order="AFTER"> <![CDATA[ 
+			select last_insert_id(); ]]> </selectKey> -->
 	</insert>
 	<!-- 로그인 -->
 	<select id="findByIdAndPassword" resultType="uservo"
