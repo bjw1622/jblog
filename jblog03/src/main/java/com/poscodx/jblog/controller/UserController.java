@@ -1,5 +1,8 @@
 package com.poscodx.jblog.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +27,37 @@ public class UserController {
 	public String join(UserVo userVo) {
 		boolean checkJoin = userService.join(userVo);
 		if (checkJoin == true) {
-			return "/user/joinsuccess";
+			return "redirect:/user/joinsuccess";
 		}
-		return "/user/join";
+		return "redirect:/user/join";
 	}
+
 	@GetMapping("/login")
 	public String loginForm() {
 		return "user/login";
 	}
+
+	@PostMapping("/login")
+	public String login(UserVo userVo, HttpSession httpSession) {
+		UserVo loginVo = userService.login(userVo);
+		System.out.println(loginVo);
+		if (loginVo != null) {
+			httpSession.setAttribute("authUser", loginVo);
+		}
+		return "redirect:/" + loginVo.getId();
+	}
+
+	@GetMapping("/joinsuccess")
+	public String joinsuccess() {
+		return "/user/joinsuccess";
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession httpSession = request.getSession();
+		httpSession.removeAttribute("authUser");
+		httpSession.invalidate();
+		return "redirect:/jblog";
+	}
+
 }
