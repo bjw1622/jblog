@@ -38,4 +38,22 @@
 		]]>
 	</select>
 	
+		<!-- 카테고리 이름으로 no 가져오기 -->
+	<select id="categoryNo" resultType="categoryvo" parameterType="categoryvo">
+		<![CDATA[
+		select no
+		  from category
+		 where name=#{name }
+		]]>
+	</select>
+	
+		<!--글 작성 -->
+	<insert id="insertPost" parameterType="postvo">
+		<![CDATA[
+		insert
+		  into post
+	    values (null, #{title}, #{contents}, #{categoryNo})
+		]]>
+	</insert>
+	
 </mapper>

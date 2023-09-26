@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.poscodx.jblog.repository.BlogRepository;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Service
@@ -37,6 +38,24 @@ public class BlogService {
 		categoryVo.setBlogId(blogId);
 		List<CategoryVo> categoryList = blogRepository.categoryInfo(categoryVo);
 		return categoryList;
+	}
+
+	public CategoryVo findCategoryNo(String category) {
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setName(category);
+		CategoryVo vo = blogRepository.findCategoryName(categoryVo);
+		return vo;
+	}
+
+	public boolean addPost(PostVo postVo) {
+		boolean addCheckPost = blogRepository.addPost(postVo);
+		return addCheckPost;
+	}
+
+	public List<PostVo> postInfo(String blogId) {
+//		
+//		List<PostVo> postList = blogRepository.postInfo(blogId);
+		return null;
 	}
 
 }

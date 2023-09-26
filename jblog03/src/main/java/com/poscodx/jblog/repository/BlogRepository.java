@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 
 @Repository
 public class BlogRepository {
@@ -36,6 +37,21 @@ public class BlogRepository {
 	public List<CategoryVo> categoryInfo(CategoryVo categoryVo) {
 		List<CategoryVo> categoryList = sqlSession.selectList("blog.categoryInfo", categoryVo);
 		return categoryList;
+	}
+
+	public CategoryVo findCategoryName(CategoryVo categoryVo) {
+		CategoryVo vo = sqlSession.selectOne("blog.categoryNo", categoryVo);
+		return vo;
+	}
+
+	public boolean addPost(PostVo postVo) {
+		int count = sqlSession.insert("blog.insertPost", postVo);
+		return count == 1;
+	}
+
+	public List<PostVo> postInfo(String blogId) {
+//		List<PostVo> postList = sqlSession.selectList(blogId)
+		return null;
 	}
 
 }
