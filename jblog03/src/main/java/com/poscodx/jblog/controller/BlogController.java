@@ -1,5 +1,6 @@
 package com.poscodx.jblog.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,9 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/category")
-	public String adminCategoryForm(@PathVariable("id") String blogId) {
+	public String adminCategoryForm(@PathVariable("id") String blogId,Model model) {
+		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
+		model.addAttribute("categoryList", categoryList);
 		return "blog/admin-category";
 	}
 
@@ -43,6 +46,9 @@ public class BlogController {
 	public String adminCategory(@PathVariable("id") String blogId, CategoryVo categoryVo) {
 		categoryVo.setBlogId(blogId);
 		boolean checkAddCategory = blogService.addCategory(categoryVo);
+		if (checkAddCategory == true) {
+			return "redirect:/"+blogId+"/admin/category";
+		}
 		return "blog/admin-category";
 	}
 

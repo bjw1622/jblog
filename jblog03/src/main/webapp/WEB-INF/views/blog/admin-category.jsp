@@ -14,8 +14,10 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
-			<ul>
+			<a
+				href="${pageContext.request.contextPath}/${sessionScope.authUser.id}">
+				<h1>백재원 이올시다의 블로그에 오신걸 콩그레츄레이션</h1>
+			</a>			<ul>
 				<c:choose>
 					<c:when test="${sessionScope.authUser != null}">
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
@@ -46,30 +48,16 @@
 						<th>설명</th>
 						<th>삭제</th>
 					</tr>
-					<tr>
-						<td>3</td>
-						<td>미분류</td>
-						<td>10</td>
-						<td>카테고리를 지정하지 않은 경우</td>
-						<td><img
-							src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>스프링 스터디</td>
-						<td>20</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img
-							src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>스프링 프로젝트</td>
-						<td>15</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img
-							src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>
+					<c:forEach items="${categoryList}" var="category">
+						<tr>
+							<td>${category.no}</td>
+							<td>${category.name}</td>
+							<td>?</td>
+							<td>${category.description}</td>
+							<td><a href=""><img
+									src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
+						</tr>
+					</c:forEach>
 				</table>
 
 				<form

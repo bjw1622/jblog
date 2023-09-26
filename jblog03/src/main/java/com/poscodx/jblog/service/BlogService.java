@@ -1,5 +1,7 @@
 package com.poscodx.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,13 @@ public class BlogService {
 
 	public boolean addCategory(CategoryVo categoryVo) {
 		return blogRepository.addCategory(categoryVo);
+	}
+
+	public List<CategoryVo> categoryInfo(String blogId) {
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setBlogId(blogId);
+		List<CategoryVo> categoryList = blogRepository.categoryInfo(categoryVo);
+		return categoryList;
 	}
 
 }

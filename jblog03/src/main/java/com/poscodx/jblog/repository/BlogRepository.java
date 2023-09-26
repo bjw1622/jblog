@@ -1,6 +1,7 @@
 package com.poscodx.jblog.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,6 +31,11 @@ public class BlogRepository {
 	public boolean addCategory(CategoryVo categoryVo) {
 		int count = sqlSession.insert("blog.insertCategory", categoryVo);
 		return count == 1;
+	}
+
+	public List<CategoryVo> categoryInfo(CategoryVo categoryVo) {
+		List<CategoryVo> categoryList = sqlSession.selectList("blog.categoryInfo", categoryVo);
+		return categoryList;
 	}
 
 }

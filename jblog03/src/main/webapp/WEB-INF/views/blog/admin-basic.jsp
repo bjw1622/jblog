@@ -14,8 +14,10 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
-			<ul>
+			<a
+				href="${pageContext.request.contextPath}/${sessionScope.authUser.id}">
+				<h1>백재원 이올시다의 블로그에 오신걸 콩그레츄레이션</h1>
+			</a>			<ul>
 				<c:choose>
 					<c:when test="${sessionScope.authUser != null}">
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
