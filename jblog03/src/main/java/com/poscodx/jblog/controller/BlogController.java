@@ -31,4 +31,14 @@ public class BlogController {
 	public String adminBasic(@PathVariable("id") String blogId) {
 		return "blog/admin-basic";
 	}
+
+	@GetMapping("/admin/category")
+	public String adminCategory(@PathVariable("id") String blogId) {
+		return "blog/admin-category";
+	}
+
+	@GetMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String blogId) {
+		return "blog/admin-write";
+	}
 }
