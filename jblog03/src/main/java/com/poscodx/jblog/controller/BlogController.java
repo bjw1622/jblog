@@ -53,7 +53,9 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String blogId) {
+	public String adminWrite(@PathVariable("id") String blogId, Model model) {
+		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
+		model.addAttribute("categoryList", categoryList);
 		return "blog/admin-write";
 	}
 }

@@ -47,8 +47,9 @@
 							<td class="t">제목</td>
 							<td><input type="text" size="60" name="title"> <select
 								name="category">
-									<option>미분류</option>
-									<option>자바</option>
+									<c:forEach items="${categoryList}" var="category">
+										<option>${category.name}</option>
+									</c:forEach>
 							</select></td>
 						</tr>
 						<tr>
