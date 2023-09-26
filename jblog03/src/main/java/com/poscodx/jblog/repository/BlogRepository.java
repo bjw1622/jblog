@@ -49,9 +49,9 @@ public class BlogRepository {
 		return count == 1;
 	}
 
-	public List<PostVo> postInfo(String blogId) {
-//		List<PostVo> postList = sqlSession.selectList(blogId)
-		return null;
+	public List<PostVo> postInfo(CategoryVo categoryVo) {
+		List<PostVo> postList = sqlSession.selectList("blog.postInfo",categoryVo);
+		return postList;
 	}
 
 }

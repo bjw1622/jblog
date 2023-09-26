@@ -10,7 +10,7 @@
 	    values (#{title}, #{image}, #{blogId})
 		]]>
 	</insert>
-	
+
 	<!-- 블로그 정보 가져오기 -->
 	<select id="blogInfo" resultType="blogvo" parameterType="map">
 		<![CDATA[
@@ -19,7 +19,7 @@
 		 where blog_id=#{blogId }
 		]]>
 	</select>
-	
+
 	<!--블로그 생성 -->
 	<insert id="insertCategory" parameterType="categoryvo">
 		<![CDATA[
@@ -28,26 +28,28 @@
 	    values (null, #{name}, #{description}, #{blogId})
 		]]>
 	</insert>
-	
-		<!-- 카테고리 정보 가져오기 -->
-	<select id="categoryInfo" resultType="categoryvo" parameterType="blogvo">
+
+	<!-- 카테고리 정보 가져오기 -->
+	<select id="categoryInfo" resultType="categoryvo"
+		parameterType="blogvo">
 		<![CDATA[
 		select no, name, description
 		  from category
 		 where blog_id=#{blogId }
 		]]>
 	</select>
-	
-		<!-- 카테고리 이름으로 no 가져오기 -->
-	<select id="categoryNo" resultType="categoryvo" parameterType="categoryvo">
+
+	<!-- 카테고리 이름으로 no 가져오기 -->
+	<select id="categoryNo" resultType="categoryvo"
+		parameterType="categoryvo">
 		<![CDATA[
 		select no
 		  from category
 		 where name=#{name }
 		]]>
 	</select>
-	
-		<!--글 작성 -->
+
+	<!--글 작성 -->
 	<insert id="insertPost" parameterType="postvo">
 		<![CDATA[
 		insert
@@ -55,5 +57,15 @@
 	    values (null, #{title}, #{contents}, #{categoryNo})
 		]]>
 	</insert>
-	
+
+	<!-- 카테고리에 맞는 post 정보 가져오기 -->
+	<select id="postInfo" resultType="postvo"
+		parameterType="categoryvo">
+		<![CDATA[
+		select no, title, contents
+		  from post
+		 where category_no=#{no }
+		]]>
+	</select>
+
 </mapper>

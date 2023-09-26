@@ -31,11 +31,12 @@ public class BlogController {
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("blogVo", blogVo);
-		
+
 		// 만약 카테고리를 눌렀을 때
-		if(!categoryNo.isEmpty()) {
-			System.out.println(categoryNo.get());
-			List<>
+		if (!categoryNo.isEmpty()) {
+			List<PostVo> postList = blogService.postInfo(categoryNo.get());
+			model.addAttribute("postList", postList);
+			System.out.println(postList.get(0));
 		}
 		return "blog/main";
 	}

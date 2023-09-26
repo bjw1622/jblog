@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+
 <!doctype html>
 <html>
 <head>
@@ -45,15 +46,12 @@
 					<p>
 				</div>
 				<ul class="blog-list">
-					<li><a href="">Spring Camp 2016 참여기</a> <span>2015/05/02</span>
-					</li>
-					<li><a href="">Spring Boot 사용법 정리</a> <span>2015/05/02</span>
-					</li>
-					<li><a href="">Spring Security 설정법</a> <span>2015/05/02</span>
-					</li>
-					<li><a href="">JPA + Hinernate</a> <span>2015/05/02</span></li>
-					<li><a href="">AOP 활용하기 - DAO 실행시간 측정하기</a> <span>2015/05/02</span>
-					</li>
+					<c:if test="${postList != null}">
+						<c:forEach items="${postList}" var="post">
+							<li><a
+								href="${pageContext.request.contextPath}/${sessionScope.authUser.id}/">${post.title}</a></li>
+						</c:forEach>
+					</c:if>
 				</ul>
 			</div>
 		</div>

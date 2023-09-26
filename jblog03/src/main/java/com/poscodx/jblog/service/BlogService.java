@@ -52,10 +52,11 @@ public class BlogService {
 		return addCheckPost;
 	}
 
-	public List<PostVo> postInfo(String blogId) {
-//		
-//		List<PostVo> postList = blogRepository.postInfo(blogId);
-		return null;
+	public List<PostVo> postInfo(Long categoryNo) {
+		CategoryVo vo = new CategoryVo();
+		vo.setNo(categoryNo);
+		List<PostVo> postList = blogRepository.postInfo(vo);
+		return postList;
 	}
 
 }
