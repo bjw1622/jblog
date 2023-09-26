@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.poscodx.jblog.vo.BlogVo;
+import com.poscodx.jblog.vo.CategoryVo;
 
 @Repository
 public class BlogRepository {
@@ -24,6 +25,11 @@ public class BlogRepository {
 		map.put("blogId", blogId);
 		BlogVo blogVo = sqlSession.selectOne("blog.blogInfo", map);
 		return blogVo;
+	}
+
+	public boolean addCategory(CategoryVo categoryVo) {
+		int count = sqlSession.insert("blog.insertCategory", categoryVo);
+		return count == 1;
 	}
 
 }

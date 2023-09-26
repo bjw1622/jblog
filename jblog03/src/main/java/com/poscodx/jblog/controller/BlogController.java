@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.vo.BlogVo;
+import com.poscodx.jblog.vo.CategoryVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -33,7 +35,14 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String blogId) {
+	public String adminCategoryForm(@PathVariable("id") String blogId) {
+		return "blog/admin-category";
+	}
+
+	@PostMapping("/admin/category")
+	public String adminCategory(@PathVariable("id") String blogId, CategoryVo categoryVo) {
+		categoryVo.setBlogId(blogId);
+		boolean checkAddCategory = blogService.addCategory(categoryVo);
 		return "blog/admin-category";
 	}
 

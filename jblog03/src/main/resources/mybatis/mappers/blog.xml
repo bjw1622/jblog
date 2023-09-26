@@ -10,13 +10,20 @@
 	    values (#{title}, #{image}, #{blogId})
 		]]>
 	</insert>
-	
-	<select id="blogInfo" resultType="blogvo"
-		parameterType="map">
+	<!-- 블로그 정보 가져오기 -->
+	<select id="blogInfo" resultType="blogvo" parameterType="map">
 		<![CDATA[
 		select title, image, blog_id
 		  from blog
 		 where blog_id=#{blogId }
 		]]>
 	</select>
+	<!--블로그 생성 -->
+	<insert id="insertCategory" parameterType="categoryvo">
+		<![CDATA[
+		insert
+		  into category
+	    values (null, #{name}, #{description}, #{blogId})
+		]]>
+	</insert>
 </mapper>

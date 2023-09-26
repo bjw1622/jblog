@@ -4,6 +4,7 @@
 	<typeAliases>
 		<typeAlias type="com.poscodx.jblog.vo.UserVo" alias="uservo" />
 		<typeAlias type="com.poscodx.jblog.vo.BlogVo" alias="blogvo" />
+		<typeAlias type="com.poscodx.jblog.vo.CategoryVo" alias="categoryvo" />
 	</typeAliases>
 
 	<mappers>

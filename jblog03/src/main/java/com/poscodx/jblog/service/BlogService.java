@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.poscodx.jblog.repository.BlogRepository;
 import com.poscodx.jblog.vo.BlogVo;
+import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Service
@@ -23,6 +24,10 @@ public class BlogService {
 	public BlogVo blogInfo(String blogId) {
 		BlogVo blogVo = blogRepository.blogInfo(blogId);
 		return blogVo;
+	}
+
+	public boolean addCategory(CategoryVo categoryVo) {
+		return blogRepository.addCategory(categoryVo);
 	}
 
 }
