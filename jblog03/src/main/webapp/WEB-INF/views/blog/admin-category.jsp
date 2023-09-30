@@ -17,7 +17,8 @@
 			<a
 				href="${pageContext.request.contextPath}/${sessionScope.authUser.id}">
 				<h1>백재원 이올시다의 블로그에 오신걸 콩그레츄레이션</h1>
-			</a>			<ul>
+			</a>
+			<ul>
 				<c:choose>
 					<c:when test="${sessionScope.authUser != null}">
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
@@ -48,9 +49,10 @@
 						<th>설명</th>
 						<th>삭제</th>
 					</tr>
-					<c:forEach items="${categoryList}" var="category">
+					<c:forEach items="${categoryList}" var="category"
+						varStatus="status">
 						<tr>
-							<td>${category.no}</td>
+							<td>${status.index + 1}</td>
 							<td>${category.name}</td>
 							<td>?</td>
 							<td>${category.description}</td>
