@@ -53,7 +53,7 @@
 						<tr>
 							<td class="t">로고이미지</td>
 							<td><img
-								src="${pageContext.request.contextPath}/assets/images/${blogVo.image}"></td>
+								src="${pageContext.request.contextPath}${blogVo.image}"></td>
 						</tr>
 						<tr>
 							<td class="t">&nbsp;</td>
