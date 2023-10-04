@@ -33,9 +33,13 @@
 	<select id="categoryInfo" resultType="categoryvo"
 		parameterType="blogvo">
 		<![CDATA[
-		select no, name, description
-		  from category
-		 where blog_id=#{blogId }
+	    select  c.no, 
+	      c.name, 
+	      c.description, 
+	      (select count(*) from post where category_no = c.no) as totalPostCount, 
+	      c.blog_id 
+	from category c 
+	where blog_id = ${blogId}	
 		]]>
 	</select>
 
@@ -73,9 +77,10 @@
 	<delete id="deletepostForCategory" parameterType="categoryvo">
 		<![CDATA[ DELETE FROM post WHERE category_no = #{no} ]]>
 	</delete>
-	
+
 	<!-- 카테고리 삭제 -->
 	<delete id="deleteCategory" parameterType="categoryvo">
+		<!-- <![CDATA[ DELETE FROM post WHERE category_no = #{no} ]]> -->
 		<![CDATA[
 		DELETE FROM category
 		WHERE no = #{no}

@@ -64,7 +64,6 @@ public class BlogController {
 		List<CategoryVo> categoryList = new ArrayList<>();
 		categoryList = blogService.categoryInfo(blogId);
 		model.addAttribute("categoryList", categoryList);
-		// 이 때 가져온 category_no를 기준으로 카운트
 		return "blog/admin-category";
 	}
 

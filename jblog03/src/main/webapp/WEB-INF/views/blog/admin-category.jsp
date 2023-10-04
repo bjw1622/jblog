@@ -54,7 +54,7 @@
 						<tr>
 							<td>${status.index + 1}</td>
 							<td>${category.name}</td>
-							<td>${category.no}</td>
+							<td>${category.totalPostCount}</td>
 							<td>${category.description}</td>
 							<td>
 								<form
