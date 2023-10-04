@@ -16,7 +16,7 @@
 		<div id="header">
 			<a
 				href="${pageContext.request.contextPath}/${sessionScope.authUser.id}">
-				<h1>백재원 이올시다의 블로그에 오신걸 콩그레츄레이션</h1>
+				<h1>${blogVo.title}</h1>
 			</a>
 			<ul>
 				<c:choose>

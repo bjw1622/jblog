@@ -63,4 +63,12 @@ public class BlogService {
 		blogRepository.deleteCategory(categoryNo);
 	}
 
+	public BlogVo adminBasicInfo(String blogId) {
+		return blogRepository.adminBasicinfo(blogId);
+	}
+
+	public void updateSite(BlogVo blogVo) {
+		blogRepository.update(blogVo);
+	}
+
 }

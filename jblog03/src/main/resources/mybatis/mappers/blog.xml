@@ -86,4 +86,24 @@
 		WHERE no = #{no}
 		]]>
 	</delete>
+
+	<!-- admin 페이지 불러오기 -->
+	<select id="adminInfo" resultType="blogvo"
+		parameterType="blogvo">
+		<![CDATA[
+		select title, image, blog_id
+		  from blog
+		 where blog_id=#{blogId }
+		]]>
+	</select>
+
+	<!-- admin 페이지 업데이트 -->
+	<update id="update" parameterType="blogvo">
+		<![CDATA[
+		update blog
+	   	   set title = #{title },
+		       image = #{image }
+	     where blog_id=#{blogId}      	
+		]]>
+	</update>
 </mapper>

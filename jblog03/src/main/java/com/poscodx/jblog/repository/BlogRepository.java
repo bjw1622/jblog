@@ -57,8 +57,18 @@ public class BlogRepository {
 	public void deleteCategory(Long categoryNo) {
 		CategoryVo categoryVo = new CategoryVo();
 		categoryVo.setNo(categoryNo);
-		sqlSession.delete("deletepostForCategory", categoryVo);
-		sqlSession.delete("deleteCategory", categoryVo);
+		sqlSession.delete("blog.deletepostForCategory", categoryVo);
+		sqlSession.delete("blog.deleteCategory", categoryVo);
+	}
+
+	public BlogVo adminBasicinfo(String blogId) {
+		BlogVo blogVo = new BlogVo();
+		blogVo.setBlogId(blogId);
+		return sqlSession.selectOne("blog.adminInfo", blogVo);
+	}
+
+	public void update(BlogVo blogVo) {
+		sqlSession.update("blog.update", blogVo);
 	}
 
 }

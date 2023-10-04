@@ -52,7 +52,7 @@
 		<div id="extra">
 			<div class="blog-logo">
 				<img
-					src="${pageContext.request.contextPath}/assets/images/loopy.jpg">
+					src="${pageContext.request.contextPath}${blogVo.image}">
 			</div>
 		</div>
 

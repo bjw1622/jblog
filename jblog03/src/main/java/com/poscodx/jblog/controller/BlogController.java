@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.service.BlogService;
+import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
@@ -27,6 +30,12 @@ public class BlogController {
 
 	@Autowired
 	private BlogService blogService;
+
+	@Autowired
+	private FileUploadService fileUploadService;
+
+	@Autowired
+	private ServletContext servletContext;
 
 	@GetMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(HttpServletRequest request, @PathVariable("id") String blogId,
@@ -55,14 +64,34 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/basic")
-	public String adminBasic(@PathVariable("id") String blogId) {
+	public String adminBasicForm(@PathVariable("id") String blogId, Model model) {
+		BlogVo blogVo = blogService.adminBasicInfo(blogId);
+		model.addAttribute("blogVo", blogVo);
 		return "blog/admin-basic";
+	}
+
+	@PostMapping("/admin/basic")
+	public String adminBasic(@PathVariable("id") String blogId, BlogVo blogVo,
+			@RequestParam("logo-file") MultipartFile file, @RequestParam("title") String title) {
+		String url = fileUploadService.restore(file);
+		blogVo.setImage(url);
+		blogVo.setTitle(title);
+		blogVo.setBlogId(blogId);
+		if(url == null) {
+			blogVo.setImage("");
+		}
+		blogService.updateSite(blogVo);
+		servletContext.setAttribute("blogVo", blogVo);
+
+		return "redirect:/" + blogId + "/admin/basic";
 	}
 
 	@GetMapping("/admin/category")
 	public String adminCategoryForm(@PathVariable("id") String blogId, Model model) {
 		List<CategoryVo> categoryList = new ArrayList<>();
 		categoryList = blogService.categoryInfo(blogId);
+		BlogVo blogVo = blogService.blogInfo(blogId);
+		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("categoryList", categoryList);
 		return "blog/admin-category";
 	}
@@ -87,6 +116,8 @@ public class BlogController {
 	@GetMapping("/admin/write")
 	public String adminWriteForm(@PathVariable("id") String blogId, Model model) {
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
+		BlogVo blogVo = blogService.blogInfo(blogId);
+		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("categoryList", categoryList);
 		return "blog/admin-write";
 	}
