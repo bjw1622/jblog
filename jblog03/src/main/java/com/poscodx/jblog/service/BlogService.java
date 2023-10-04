@@ -59,4 +59,8 @@ public class BlogService {
 		return postList;
 	}
 
+	public void deleteCategory(Long categoryNo) {
+		blogRepository.deleteCategory(categoryNo);
+	}
+
 }

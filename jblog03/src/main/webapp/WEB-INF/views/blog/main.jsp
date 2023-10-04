@@ -35,8 +35,7 @@
 				<div class="blog-content">
 					<!-- 여기서 분기처리 postvo가 null이 아닐 때 -->
 					<h4>${postInfo.title}</h4>
-					<p>
-						${postInfo.contents} 
+					<p>${postInfo.contents}
 					<p>
 				</div>
 				<ul class="blog-list">
@@ -61,6 +60,7 @@
 			<h2>카테고리</h2>
 			<ul>
 				<c:forEach items="${categoryList}" var="category">
+					<!-- authUser.id가 있을때, 없을 때 나눠서 처리해야 로그인 하지 않았을때도 볼 수 있게  -->
 					<li><a
 						href="${pageContext.request.contextPath}/${sessionScope.authUser.id}/${category.no}">${category.name}</a></li>
 				</c:forEach>

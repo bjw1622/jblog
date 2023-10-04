@@ -68,4 +68,17 @@
 		]]>
 	</select>
 
+
+	<!-- 카테고리 삭제를 위한 post 삭제 -->
+	<delete id="deletepostForCategory" parameterType="categoryvo">
+		<![CDATA[ DELETE FROM post WHERE category_no = #{no} ]]>
+	</delete>
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="deleteCategory" parameterType="categoryvo">
+		<![CDATA[
+		DELETE FROM category
+		WHERE no = #{no}
+		]]>
+	</delete>
 </mapper>

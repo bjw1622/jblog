@@ -64,6 +64,7 @@ public class BlogController {
 		List<CategoryVo> categoryList = new ArrayList<>();
 		categoryList = blogService.categoryInfo(blogId);
 		model.addAttribute("categoryList", categoryList);
+		// 이 때 가져온 category_no를 기준으로 카운트
 		return "blog/admin-category";
 	}
 
@@ -77,6 +78,13 @@ public class BlogController {
 		return "blog/admin-category";
 	}
 
+	@PostMapping("/admin/category/{categoryNo}")
+	public String deleteAdminCategory(@PathVariable("id") String blogId, @PathVariable("categoryNo") Long categoryNo) {
+		System.out.println(categoryNo);
+		blogService.deleteCategory(categoryNo);
+		return "redirect:/" + blogId + "/admin/category";
+	}
+
 	@GetMapping("/admin/write")
 	public String adminWriteForm(@PathVariable("id") String blogId, Model model) {
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
@@ -88,6 +96,7 @@ public class BlogController {
 	public String adminWrite(@PathVariable("id") String blogId, PostVo postVo,
 			@RequestParam("category") String category) {
 		// 카테고리 이름으로 카테고리 넘버 가져오고
+		// 만약 블로그끼리 카테고리 이름이 겹친다면?? 그때는 에러가 터짐..
 		CategoryVo categoryVo = blogService.findCategoryNo(category);
 		postVo.setCategoryNo(categoryVo.getNo());
 

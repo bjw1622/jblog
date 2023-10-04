@@ -50,8 +50,15 @@ public class BlogRepository {
 	}
 
 	public List<PostVo> postInfo(CategoryVo categoryVo) {
-		List<PostVo> postList = sqlSession.selectList("blog.postInfo",categoryVo);
+		List<PostVo> postList = sqlSession.selectList("blog.postInfo", categoryVo);
 		return postList;
+	}
+
+	public void deleteCategory(Long categoryNo) {
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setNo(categoryNo);
+		sqlSession.delete("deletepostForCategory", categoryVo);
+		sqlSession.delete("deleteCategory", categoryVo);
 	}
 
 }

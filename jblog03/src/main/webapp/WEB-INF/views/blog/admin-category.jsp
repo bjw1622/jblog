@@ -54,12 +54,21 @@
 						<tr>
 							<td>${status.index + 1}</td>
 							<td>${category.name}</td>
-							<td>?</td>
+							<td>${category.no}</td>
 							<td>${category.description}</td>
-							<td><a href=""><img
-									src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
+							<td>
+								<form
+									action="${pageContext.request.contextPath}/${sessionScope.authUser.id}/admin/category/${category.no}"
+									method="post">
+									<button type="submit">
+										<img
+											src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+									</button>
+								</form>
+							</td>
 						</tr>
 					</c:forEach>
+
 				</table>
 
 				<form
