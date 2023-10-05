@@ -33,7 +33,6 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<!-- 여기서 분기처리 postvo가 null이 아닐 때 -->
 					<h4>${postInfo.title}</h4>
 					<p>${postInfo.contents}
 					<p>
@@ -69,7 +68,7 @@
 
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
+				<strong>${blogVo.title}</strong> is powered by JBlog (c)2023
 			</p>
 		</div>
 	</div>

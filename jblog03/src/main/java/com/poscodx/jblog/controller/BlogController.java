@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -42,7 +41,6 @@ public class BlogController {
 	public String index(HttpServletRequest request, @PathVariable("id") String blogId,
 			@PathVariable("categoryNo") Optional<Long> categoryNo, @PathVariable("postNo") Optional<Long> postNo,
 			Model model) {
-		System.out.println("아이디 보여조오옹  : ::::::::" + blogId);
 		BlogVo blogVo = blogService.blogInfo(blogId);
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
 
