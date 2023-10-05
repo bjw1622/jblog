@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +71,11 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/basic")
-	public String adminBasicForm(@PathVariable("id") String blogId, Model model) {
+	public String adminBasicForm(@PathVariable("id") String blogId, Model model, HttpServletRequest request) {
+		HttpSession httpSession = request.getSession();
+		if (httpSession.getAttribute("authUser") == null) {
+			return "redirect:/" + blogId;
+		}
 		BlogVo blogVo = blogService.adminBasicInfo(blogId);
 		model.addAttribute("blogVo", blogVo);
 		return "blog/admin-basic";
@@ -93,7 +98,11 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/category")
-	public String adminCategoryForm(@PathVariable("id") String blogId, Model model) {
+	public String adminCategoryForm(@PathVariable("id") String blogId, Model model, HttpServletRequest request) {
+		HttpSession httpSession = request.getSession();
+		if (httpSession.getAttribute("authUser") == null) {
+			return "redirect:/" + blogId;
+		}
 		List<CategoryVo> categoryList = new ArrayList<>();
 		categoryList = blogService.categoryInfo(blogId);
 		BlogVo blogVo = blogService.blogInfo(blogId);
@@ -120,7 +129,11 @@ public class BlogController {
 	}
 
 	@GetMapping("/admin/write")
-	public String adminWriteForm(@PathVariable("id") String blogId, Model model) {
+	public String adminWriteForm(@PathVariable("id") String blogId, Model model, HttpServletRequest request) {
+		HttpSession httpSession = request.getSession();
+		if (httpSession.getAttribute("authUser") == null) {
+			return "redirect:/" + blogId;
+		}
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
 		BlogVo blogVo = blogService.blogInfo(blogId);
 		model.addAttribute("blogVo", blogVo);
