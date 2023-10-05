@@ -42,7 +42,7 @@
 					<c:if test="${postList != null}">
 						<c:forEach items="${postList}" var="post">
 							<li><a
-								href="${pageContext.request.contextPath}/${sessionScope.authUser.id}/${categoryNo}/${post.no}">${post.title}</a></li>
+								href="${pageContext.request.contextPath}/${blogId}/${categoryNo}/${post.no}">${post.title}</a></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -62,7 +62,7 @@
 				<c:forEach items="${categoryList}" var="category">
 					<!-- authUser.id가 있을때, 없을 때 나눠서 처리해야 로그인 하지 않았을때도 볼 수 있게  -->
 					<li><a
-						href="${pageContext.request.contextPath}/${sessionScope.authUser.id}/${category.no}">${category.name}</a></li>
+						href="${pageContext.request.contextPath}/${blogId}/${category.no}">${category.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

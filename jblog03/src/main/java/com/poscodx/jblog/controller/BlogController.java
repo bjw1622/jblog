@@ -42,10 +42,13 @@ public class BlogController {
 	public String index(HttpServletRequest request, @PathVariable("id") String blogId,
 			@PathVariable("categoryNo") Optional<Long> categoryNo, @PathVariable("postNo") Optional<Long> postNo,
 			Model model) {
+		System.out.println("아이디 보여조오옹  : ::::::::" + blogId);
 		BlogVo blogVo = blogService.blogInfo(blogId);
 		List<CategoryVo> categoryList = blogService.categoryInfo(blogId);
+
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("blogVo", blogVo);
+		model.addAttribute("blogId",blogId);
 		List<PostVo> postList = new ArrayList<>();
 		List<PostVo> postAllList = new ArrayList<>();
 		// 모든 게시글 불러오기
