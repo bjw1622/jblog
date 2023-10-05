@@ -71,4 +71,8 @@ public class BlogService {
 		blogRepository.update(blogVo);
 	}
 
+	public List<PostVo> postAll() {
+		return blogRepository.postAll();
+	}
+
 }

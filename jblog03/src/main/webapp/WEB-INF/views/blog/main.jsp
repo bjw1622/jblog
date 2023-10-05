@@ -42,7 +42,7 @@
 					<c:if test="${postList != null}">
 						<c:forEach items="${postList}" var="post">
 							<li><a
-								href="${pageContext.request.contextPath}/${sessionScope.authUser.id}/${categoryNo}/${post.no-1}">${post.title}</a></li>
+								href="${pageContext.request.contextPath}/${sessionScope.authUser.id}/${categoryNo}/${post.no}">${post.title}</a></li>
 						</c:forEach>
 					</c:if>
 				</ul>

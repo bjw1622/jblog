@@ -71,4 +71,9 @@ public class BlogRepository {
 		sqlSession.update("blog.update", blogVo);
 	}
 
+	public List<PostVo> postAll() {
+		List<PostVo> postList = sqlSession.selectList("postAllInfo");
+		return postList;
+	}
+
 }
