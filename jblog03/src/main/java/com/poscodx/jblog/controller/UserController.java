@@ -29,7 +29,6 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(UserVo userVo) {
 		boolean checkJoin = userService.join(userVo);
-		// 블로그 생성 추가
 		if (checkJoin == true) {
 			blogService.createBlog(userVo);
 			return "redirect:/user/joinsuccess";

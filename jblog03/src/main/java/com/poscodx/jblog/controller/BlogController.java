@@ -48,21 +48,17 @@ public class BlogController {
 
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("blogVo", blogVo);
-		model.addAttribute("blogId",blogId);
+		model.addAttribute("blogId", blogId);
 		List<PostVo> postList = new ArrayList<>();
 		List<PostVo> postAllList = new ArrayList<>();
-		// 모든 게시글 불러오기
 		postAllList = blogService.postAll();
 
-		// 만약 카테고리를 눌렀을 때
-		// 카테고리에 해당하는 게시글들이 들어감
 		if (!categoryNo.isEmpty()) {
 			postList = blogService.postInfo(categoryNo.get());
 			model.addAttribute("postList", postList);
 			model.addAttribute("categoryNo", categoryNo.get());
 		}
 
-		// 카테고리도 누르고 게시글도 눌렀을 때
 		if (!categoryNo.isEmpty() && !postNo.isEmpty()) {
 			for (PostVo postVo : postAllList) {
 				if (postVo.getNo() == postNo.get().intValue()) {
@@ -147,8 +143,6 @@ public class BlogController {
 	@PostMapping("/admin/write")
 	public String adminWrite(@PathVariable("id") String blogId, PostVo postVo,
 			@RequestParam("category") String category) {
-		// 카테고리 이름으로 카테고리 넘버 가져오고
-		// 만약 블로그끼리 카테고리 이름이 겹친다면?? 그때는 에러가 터짐..
 		CategoryVo categoryVo = blogService.findCategoryNo(category);
 		postVo.setCategoryNo(categoryVo.getNo());
 
