@@ -50,7 +50,22 @@ public class BlogController {
 		List<PostVo> postList = new ArrayList<>();
 		List<PostVo> postAllList = new ArrayList<>();
 		postAllList = blogService.postAll();
-
+		
+		if (categoryNo.isEmpty()) {
+			if (!categoryList.isEmpty()&& !postAllList.isEmpty()) {
+				Long ctgNo = categoryList.get(0).getNo();
+				System.out.println(ctgNo);
+				for(PostVo postVo : postAllList) {
+					if(postVo.getCategoryNo() == ctgNo) {
+						model.addAttribute("postInfo", postVo);
+						break;
+					}
+				}
+				postList = blogService.postInfo(ctgNo);
+				model.addAttribute("postList", postList);
+			}
+		}
+		
 		if (!categoryNo.isEmpty()) {
 			postList = blogService.postInfo(categoryNo.get());
 			model.addAttribute("postList", postList);
